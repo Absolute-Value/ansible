@@ -1,0 +1,5 @@
+- name: Check Docker alive
+  hosts: all_node
+  tasks:
+    - name: Ping Connection
+      ansible.builtin.ping:

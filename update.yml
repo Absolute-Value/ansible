@@ -1,0 +1,71 @@
+- name: Update
+  hosts: u18
+  tasks:
+    - name: apt update
+      become: true
+      apt:
+        update_cache: yes
+    - name: apt upgrade
+      become: true
+      apt:
+        upgrade: yes
+    - name: apt dist-upgrade
+      become: true
+      apt: upgrade=dist force_apt_get=yes
+    - name: apt autoremove
+      become: true
+      apt:
+        autoremove: yes
+    - name: Purge nvidia-docker2
+      become: true
+      apt:
+        name: nvidia-docker2
+        state: absent
+        purge: yes
+        autoremove: yes
+    - name: Delete docker-compose
+      become: true
+      file:
+        state: absent
+        path: /usr/local/bin/docker-compose
+    - name: Purge docker-ce docker-ce-cli containerd.io docker-compose-plugin
+      become: true
+      apt:
+        name:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        - docker-compose-plugin
+        state: absent
+        purge: yes
+        autoremove: yes
+    - name: Reboot
+      ansible.builtin.reboot: reboot_timeout=600
+      become: true
+    - name: Ping Connection
+      ansible.builtin.ping:
+    - name: Ensure update-manager-core is installed.
+      become: true
+      apt: name=update-manager-core state=present
+    - name: Run do-release-upgrade non-interactively.
+      become: true
+      command: do-release-upgrade -f DistUpgradeViewNonInteractive
+    - name: Reboot
+      ansible.builtin.reboot: reboot_timeout=600
+      become: true
+    - name: Ping Connection
+      ansible.builtin.ping:
+    - name: git clone
+      ansible.builtin.git:
+        repo: http://10.226.47.83:8080/jikuya/gpu-setup-20.04
+        dest: gpu-setup-20.04
+    - name: cd & bash docker.sh
+      become: true
+      command:
+        cmd: 'bash docker.sh'
+        chdir: gpu-setup-20.04
+    - name: Reboot
+      ansible.builtin.reboot: reboot_timeout=600
+      become: true
+    - name: Ping Connection
+      ansible.builtin.ping:

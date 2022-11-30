@@ -1,0 +1,36 @@
+- name: User
+  hosts: target
+  tasks:
+    - name: Add user
+      become: true
+      user:
+        name: user
+        groups: sudo, cdrom, adm, plugdev, dip, sambashare
+        password: "{{ 'katlab' | password_hash('sha512') }}"
+        home: "/home/{{ansible_ssh_user}}"
+    - name: check
+      debug:
+        msg: "/home/{{ansible_ssh_user}}"
+    - name: Change .ssh folder permission
+      become: true
+      file:
+        path: .ssh
+        state: directory
+        recurse: yes
+        owner: user
+        mode: 0770
+    - name: Change .ansible folder permission
+      become: true
+      file:
+        path: .ansible
+        state: directory
+        recurse: yes
+        owner: user
+        mode: 0777
+    - name: Change home/gpu folder permission
+      become: true
+      file:
+        path: "/home/{{ansible_ssh_user}}"
+        state: directory
+        owner: user
+        mode: 0777

@@ -1,0 +1,6 @@
+- name: Update
+  hosts: target
+  tasks:
+    - name: shutdown
+      become: true
+      community.general.shutdown:

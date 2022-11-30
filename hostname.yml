@@ -1,0 +1,17 @@
+- name: HostName
+  hosts: target
+  tasks:
+    - name: set hostname
+      become: true
+      hostname: 
+        name: "{{host_name}}"
+    - name: restart deamon
+      become: true
+      command: sudo /etc/init.d/avahi-daemon restart
+    - name: check hostname
+      become: true
+      command: "hostname"
+      register: updated
+    - name: print
+      debug:
+        msg: "{{ updated.stdout }}"

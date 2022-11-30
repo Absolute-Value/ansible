@@ -1,0 +1,9 @@
+- name: IP
+  hosts: target
+  tasks:
+    - name: ip get
+      shell: ip a | grep link/ether -m 1
+      register: ip_check
+    - name: print
+      debug:
+        msg: "{{ ip_check.stdout }}"
