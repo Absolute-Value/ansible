@@ -1,0 +1,15 @@
+- name: MAC and CPU
+  hosts: all_node
+  tasks:
+    - name: mac get
+      shell: ip a | grep link/ether -m 1
+      register: ip_check
+    - name: cpu name get
+      shell: lscpu | grep -e "Model name" -e モデル名
+      register: cpu_check
+    - name: os name get
+      shell: lsb_release -a | grep Description
+      register: os_check
+    - name: print
+      debug:
+        msg: "{{ host_name }} {{ ip_check.stdout }} {{ cpu_check.stdout }} {{ os_check.stdout }}"

@@ -8,6 +8,7 @@
         groups: sudo, cdrom, adm, plugdev, dip, sambashare
         password: "{{ 'katlab' | password_hash('sha512') }}"
         home: "/home/{{ansible_ssh_user}}"
+        shell: "/bin/bash"
     - name: check
       debug:
         msg: "/home/{{ansible_ssh_user}}"

@@ -3,10 +3,10 @@
   tasks:
     - name: git clone
       ansible.builtin.git:
-        repo: http://10.226.47.83:8080/jikuya/jikuya_docker_setup_20.04
-        dest: jikuya_docker_setup_20.04
+        repo: http://10.226.47.83:8080/jikuya/jikuya_docker_20.04_11.6
+        dest: jikuya_docker_20.04_11.6
     - name: docker compose
       become: true
       command:
         cmd: 'sudo docker compose up -d'
-        chdir: jikuya_docker_setup_20.04
+        chdir: jikuya_docker_20.04_11.6
