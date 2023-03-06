@@ -1,0 +1,12 @@
+- name: Docker create
+  hosts: target
+  tasks:
+    - name: git clone
+      ansible.builtin.git:
+        repo: http://10.226.47.83:8080/jikuya/prometheus_exporter
+        dest: prometheus_exporter
+    - name: docker compose
+      become: true
+      command:
+        cmd: 'sudo docker compose up -d'
+        chdir: prometheus_exporter

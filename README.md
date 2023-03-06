@@ -58,3 +58,9 @@ ansible-playbook mac.yml -i inventory.ini
 ```bash
 ansible-playbook docker.yml -i dockers.ini
 ```
+
+## Prometheus ExporterのDocker構築
+
+```bash
+ansible-playbook prometheus_create.yml -i inventory.ini
+```
