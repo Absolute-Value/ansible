@@ -1,6 +1,6 @@
 - name: Update
-  hosts: target
+  hosts: quadro_node
   tasks:
     - name: shutdown
+      command: shutdown now
       become: true
-      community.general.shutdown:
