@@ -1,0 +1,9 @@
+- name: IP
+  hosts: all_node
+  tasks:
+    - name: mac get
+      shell: ip a | grep "global noprefixroute"
+      register: ip_check
+    - name: print
+      debug:
+        msg: "{{ host_name }} {{ ip_check.stdout }}"
