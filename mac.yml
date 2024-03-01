@@ -1,5 +1,5 @@
 - name: MAC and CPU
-  hosts: all_node
+  hosts: aerospace_node
   tasks:
     - name: mac get
       shell: ip a | grep link/ether -m 1

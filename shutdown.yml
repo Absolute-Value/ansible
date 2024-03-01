@@ -1,5 +1,5 @@
-- name: Update
-  hosts: quadro_node
+- name: Shutdown
+  hosts: rtx4090_node
   tasks:
     - name: shutdown
       command: shutdown now
